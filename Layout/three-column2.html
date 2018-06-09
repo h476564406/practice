@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <style>
+        .layout.absolute .left-center-right>div {
+            position: absolute;
+        }
+
+        .layout.absolute .left {
+            left: 0;
+            width: 300px;
+            background: red;
+        }
+
+        .layout.absolute .right {
+            right: 0;
+            width: 300px;
+            background: blue;
+        }
+
+        .layout.absolute .center {
+            left: 300px;
+            right: 300px;
+            background: yellow;
+        }
+    </style>
+    <section class="layout absolute">
+        <h1>三栏布局</h1>
+        <article class="left-center-right">
+            <div class="left"></div>
+            <div class="center">
+                <h2>绝对定位解决方案</h2>
+                1.这是三栏布局的浮动解决方案； 2.这是三栏布局的浮动解决方案； 3.这是三栏布局的浮动解决方案； 4.这是三栏布局的浮动解决方案； 5.这是三栏布局的浮动解决方案； 6.这是三栏布局的浮动解决方案；
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+</body>
+
+</html>

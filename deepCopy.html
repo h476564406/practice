@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let parent = {
+            numbers: [1, 2, 3],
+            letters: ['a', 'b', 'c'],
+            obj: {
+                prop: 1
+            },
+            bool: true
+        };
+        const children = deepCopy(parent);
+        console.log(children === parent); // false
+        console.log(children);
+
+        function deepCopy(p, c) {
+            var c = c || {};
+            for (i in p) {
+                if (typeof p[i] === 'object') {
+                    c[i] = p[i].constructor === Array ? [] : {};
+                    // c.numbers = []; 
+                    // c[i] 为引用赋值类型的数据
+                    deepCopy(p[i], c[i]);
+                } else {
+                    // console.log(i); // 0 1 2
+                    // console.log(p[i]); // 1 2 3
+                    c[i] = p[i];
+                }
+            }
+            // console.log(c); // c.numbers = [1, 2, 3]
+            // 只是为了返回最后的children对象。在递归过程中没有大作用。
+            return c;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. Prototype chaining
+        // 本质： 使用原型链
+        // 缺点 要新建Parent1实例，而且Parent1中如果有this.属性, 也会被Child继承
+        function Child1() {
+
+        }
+        function Parent1() {
+
+        }
+        Child.prototype = new Parent();
+        // console.log(Child.prototype); // constructor ƒ Parent()
+    </script>
+    <script>
+        // 2. Inherit only the prototype
+        // 本质：使用父类的原型对象作为子类的原型对象
+        // 优点：没有实例被创建，没有使用原型链，找起来会很快。
+        // 缺点： 子类的原型对象如果改变了，直接影响到父类的原型对象。
+        function Child2() {
+
+        }
+        function Parent2() {
+
+        }
+        Child2.prototype = Parent2.prototype;
+    </script>
+    <script>
+        // 3.Temporary constructor
+        // 本质： 使用一个空的中间对象做隔离， 其实还是使用父类的原型对象作为子类的原型对象
+        // 优点：没有实例被创建，没有使用原型链，找起来会很快。子类的原型对象如果改变了，不会影响到父类得原型对象。
+        function extend1(Child, Parent) {
+            var F = function () { };
+            F.prototype = P.prototype;
+            // 给一个空的中间对象
+            Child.prototype = new F();
+            Child.prototype.constructor = Child;
+            Child.uber = Parent.prototype;
+        }
+    </script>
+    <script>
+        // 4. Copying the prototype properties
+        // 本质： 把父类原型对象上的属性拷贝到子类的原型对象上。这里是浅拷贝，可以改成深拷贝
+        function extend2(Child, Parent) {
+            var p = Parent.prototype;
+            var c = Child.prototype;
+            for (var i in p) {
+                c[i] = p[i];
+            }
+            c.uber = p;
+        }
+    </script>
+    <script>
+        // 5. Copy all properties shallow copy
+        function extendCopy(p) {
+            var c = {};
+            for (i in p) {
+                c[i] = p[i];
+            }
+            c.uber = p;
+            return c;
+        }
+    </script>
+    <script>
+        // 6.Copy all properties  deepCopy
+        function deepCopy(p, c) {
+            var c = c || {};
+            for (i in p) {
+                if (typeof p[i] === 'object') {
+                    c[i] = p[i].constructor === Array ? [] : {};
+                    deepCopy(p[i], c[i]);
+                } else {
+                    c[i] = p[i];
+                }
+            }
+            // 只是为了返回最后的children对象。在递归过程中没有大作用。
+            return c;
+        }
+    </script>
+</body>
+
+</html>

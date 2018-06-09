@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./myRequireBack.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        // def([], function () {
+        //     // 返回值是个对象
+        //     return {
+        //         getName: function () {
+        //             return '朱冰莹';
+        //         },
+        //     };
+        // });
+        req(['myModule'], function (myModule) {
+            var name = myModule.getName();
+            console.log(name);
+        });
+        // req(['myModule'], function (myModule) {
+        //     console.log('又来了');
+        // });
+        // setTimeout(function () {
+        //     req(['myModule'], function (myModule) {
+        //         console.log('又来了');
+        //     });
+        // }, 1000);
+        // req(['myModule', 'myModule1'], function (myModule, myModule1) {
+        //     var name = myModule.getName();
+        //     console.log(name);
+        //     var name1 = myModule1.getName();
+        //     console.log(name1);
+        // });
+
+        // req(['myModule2'], function (myModule2) {
+        //     var name = myModule2.getName();
+        //     console.log(name);
+        // });
+    </script>
+</body>
+
+</html>

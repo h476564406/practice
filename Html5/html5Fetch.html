@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function request(url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onerror = () => {
+                console.log('Error');
+            };
+            xhr.onreadystatechange = (function (myxhr) {
+                // 闭包 callback和myxhr
+                return function () {
+                    console.log(myxhr.readyState);
+                    callback(myxhr);
+                };
+            })(xhr);
+            xhr.open('GET', url, true);
+            // send 仅用于post请求
+            // 如果是get请求+formData, 不会有任何request payload，也不会解析formData的内容到query parmas中
+            xhr.send(null);
+        }
+        request('http://localhost:80/index.php?c=Index&a=api', function (o) {
+            // console.log(o);
+        });
+    </script>
+    <!-- <script>
+        fetch('http://localhost:80/index.php?c=Index&a=api')
+            .then(function (response) {
+                console.log('response', response);
+                return response.json();
+            })
+            .then(function (json) {
+                console.log(json);
+            });
+    </script> -->
+</body>
+
+</html>

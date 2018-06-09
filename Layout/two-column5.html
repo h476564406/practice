@@ -1,0 +1,32 @@
+<style>
+    .css-two-column-layout {
+        overflow: auto;
+    }
+
+    .css-left-div__float-bfc {
+        float: left;
+        margin-right: 20px;
+    }
+
+    .css-right-div__float-bfc {
+        /* 因为BFC的区域不会与float box重叠，不会包围前面的float元素，会与前面整个元素所占的宽度隔离开，只在剩下的宽度中。 
+        margin-left:0 就可以了。视口缩小的时候不会下落。*/
+        margin-left: 0;
+        overflow: auto;
+    }
+</style>
+<div class="css-two-column-layout">
+    <div class="css-left-div__float-bfc">
+        左边固定宽度，高度不固定<br> 左边固定宽度，高度不固定
+        <br> 左边固定宽度，高度不固定
+        <br> 左边固定宽度，高度不固定
+        <br> 左边固定宽度，高度不固定
+        <br> 左边固定宽度，高度不固定
+    </div>
+    <div class="css-right-div__float-bfc">
+        这里的内容可能比左侧高，也可能比左侧低。宽度需要自适应。</br>
+        基本的样式是，两个div相距20px, 左侧div宽 120px
+    </div>
+</div>
+<!-- 会被前面高度比较高的元素向下挤，造成空白 -->
+<div>div after layout</div>

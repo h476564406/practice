@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        #js-css-mock-textarea__div {
+            /* 普通的css盒子，宽高只包含内容区域，不包含padding */
+            width: 300px;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #888;
+            resize: both;
+            overflow: auto;
+            /* -webkit-user-modify: read-write-plaintext-only; */
+        }
+
+        #js-css-mock-textarea__div:empty:before {
+            content: attr(placeholder);
+            color: #bbb;
+        }
+    </style>
+    <textarea name="comment" id="" cols="30" rows="10">placeholder</textarea>
+    <div id="js-css-mock-textarea__div" contenteditable="plaintext-only" name="comment" placeholder="This is placeholder"></div>
+    <button id="js-submit__button" type="submit" onclick="getContent()">Submit</button>
+    <script>
+        const $submitButton = document.getElementById("js-submit__button");
+        const getContent = function (e) {
+            // this无论是箭头函数还是普通函数，总是指向window
+            console.log(this);
+            console.log(e); // undefined
+            console.log(window.event);
+            const $mockTextarea = document.getElementById('js-css-mock-textarea__div');
+            const textareaContent = $mockTextarea.textContent;
+        }
+        // $submitButton.addEventListener('click', function (e) {
+        //     // this指向当前元素, 如果是箭头函数，则this指向window对象
+        //     console.log(this);
+        //     console.log(e);
+        //     const $mockTextarea = document.getElementById('js-css-mock-textarea__div');
+        //     const textareaContent = $mockTextarea.textContent;
+        // });
+        // $submitButton.onclick = function (e) {
+        //     // this指向当前元素, 如果是箭头函数，则this指向window对象
+        //     console.log(this);
+        //     console.log(e);
+        //     const $mockTextarea = document.getElementById('js-css-mock-textarea__div');
+        //     const textareaContent = $mockTextarea.textContent;
+        // };
+    </script>
+</body>
+
+</html>

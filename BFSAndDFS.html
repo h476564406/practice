@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root" class="root">
+        <div class="container1">
+            <ul class="list">
+                <li class="item">
+                    hello
+                </li>
+                <li class="item">
+                    world
+                </li>
+            </ul>
+        </div>
+        <div class="container2">
+            <p class="someText">一些文字</p>
+        </div>
+    </div>
+    <script>
+        // Breadth First Search 广度优先遍历dom树
+        (function () {
+            console.log('广度优先遍历------------');
+            const $node = document.getElementById('root');
+            traverse($node);
+            function traverse($node) {
+                const queue = [$node];
+                const layer = [1];
+                let currentNodeQueueIndex = 0;
+
+                while (queue.length) {
+                    const node = queue.shift();
+                    print(node, layer[currentNodeQueueIndex]);
+                    if (!node.children.length) {
+                        currentNodeQueueIndex++;
+                        continue;
+                    }
+                    // 查看该元素有没有子节点，有的话推入到queue中
+                    Array.from(node.children).forEach(function (element) {
+                        queue.push(element);
+                    }, this);
+                    // 依据当前node的层次来计算它的子节点的层次
+                    for (var index = 0; index < node.children.length; index++) {
+                        layer.push(layer[currentNodeQueueIndex] + 1);
+                    }
+                    currentNodeQueueIndex++;
+                }
+            }
+            function print(node, layer) {
+                console.log('node', node.nodeName, layer);
+            }
+        })();
+        (function () {
+            console.log('深度优先遍历------------');
+            const $node = document.getElementById('root');
+            function traverse(node, layer) {
+                do {
+                    if (node.nodeType === 3) {
+                        continue;
+                    }
+                    print(node, layer);
+                    if (node.hasChildNodes()) {
+                        traverse(node.firstChild, layer + 1);
+                    }
+                } while (($node !== node && (node = node.nextSibling)));
+            }
+            traverse($node, 1);
+            function print(node, layer) {
+                console.log('node', node.nodeName, layer);
+            }
+        })();
+    </script>
+</body>
+
+</html>

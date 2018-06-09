@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        img {
+            width: 600px;
+            height: 300px;
+        }
+    </style>
+    <!-- dataset根据屏幕密度现实对应尺寸图片 -->
+    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152446389278394_blob" sizes="600px" alt="">
+    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152413028667474_blob" alt="">
+    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152412772793072_blob" alt="">
+    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152359062473518_blob" alt="">
+    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152342881641931_blob" alt="">
+    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152341638634638_blob" alt="">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let lazyImages = [].slice.call(document.querySelectorAll('img.lazy'));
+            if ('IntersectionObserver' in window) {
+                // 当被监控的对象进入到主屏幕时，回调函数会被触发
+                let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
+                    console.log('entries', entries);
+                    entries.forEach(function (entry, index) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImage.classList.remove('lazy');
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                });
+                lazyImages.forEach(function (lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            } else {
+                let active = false;
+                const lazyLoad = function () {
+                    if (active === false) {
+                        active = true;
+                        setTimeout(function () {
+                            lazyImages.forEach(function (lazyImage) {
+                                const rect = lazyImage.getBoundingClientRect();
+                                // https://harttle.land/2016/04/24/client-height-width.html                                
+                                // window.innerHeight包括整个DOM视口：内容、边框以及滚动条。
+                                // documentElement.clientHeight不包括整个文档的滚动条，但包括<html>元素的边框。
+                                // body.clientHeight不包括整个文档的滚动条，也不包括<html>元素的边框，也不包括<body>的边框和滚动条。
+                                const isImageShow = (rect.top <= window.innerHeight && rect.bottom >= 0) && (getComputedStyle(lazyImage).display !== 'none');
+                                if (isImageShow) {
+                                    lazyImage.src = lazyImage.dataset.src;
+                                    lazyImage.classList.remove('lazy');
+                                    //  留下还没有加载的图片继续监视
+                                    lazyImages = lazyImages.filter(function (image) {
+                                        return image !== lazyImage;
+                                    });
+                                    if (lazyImages.length === 0) {
+                                        document.removeEventListener('scroll', lazyLoad)
+                                        document.removeEventListener('resize', lazyLoad)
+                                        document.removeEventListener('orientationchange', lazyLoad);
+                                    }
+                                }
+                            });
+                            active = false;
+                        }, 200);
+                    }
+                }
+                window.addEventListener('load', lazyLoad)
+                document.addEventListener('scroll', lazyLoad)
+                document.addEventListener('resize', lazyLoad)
+                document.addEventListener('orientationchange', lazyLoad);
+            }
+        });
+    </script>
+</body>
+
+</html>

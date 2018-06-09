@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <script>
+        for (var index = 0; index < 5; index++) {
+            (function (index) {
+                setTimeout(function () {
+                    console.log(index);
+                }, index * 1000);
+
+            })(index);
+        }
+        console.log(index);
+    </script> -->
+    <!-- <script>
+        for (var index = 0; index < 5; index++) {
+            setTimeout(function (index) {
+                console.log(index);
+            }, 1000 * index, index);
+
+        }
+        console.log(index);
+    </script> -->
+    <!-- <script>
+        function sleep(index) {
+            return new Promise(function (resolve) {
+                setTimeout(function () {
+                    resolve(index);
+                }, 1000);
+            });
+        }
+        (async function () {
+            for (var index = 0; index < 5; index++) {
+                console.log(await sleep(index));
+            }
+            console.log(await sleep(index));
+            // return index;
+        })();
+        // .then((res) => {
+        //     console.log(res);
+        // });
+    </script> -->
+    <!-- <script>
+        const tasks = [];
+        for (var index = 0; index < 5; index++) {
+            (function (index) {
+                tasks.push(new Promise((resolve) => {
+                    setTimeout(function () {
+                        console.log(index);
+                        resolve(index);
+                    }, index * 1000);
+                }));
+            })(index);
+        }
+        Promise.all(tasks).then((array) => {
+            setTimeout(() => {
+                console.log(index);
+            }, 1000);
+        });
+    </script> -->
+    <!-- <script>
+        // 立即执行函数的返回值是undefined
+        console.log((() => { })());
+        // 仍然会Timer Fired
+        setTimeout(undefined, 1000)
+    </script> -->
+    <script>
+        // index is not defined, 使用code方式，无法利用传入参数的功能。
+        // setTimeout('console.log(index)', 1000, 1);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <style>
+        .layout.float .left-right-center::after {
+            display: block;
+            clear: both;
+            content: '';
+        }
+
+        .layout.float .left {
+            float: left;
+            width: 300px;
+            background: red;
+            /* 设置高度或者给center 设置margin */
+            /* height: 300px; */
+        }
+
+        .layout.float .center {
+            background: yellow;
+            margin-left: 300px;
+            margin-right: 300px;
+            /* height: 300px; */
+        }
+
+        .layout.float .right {
+            float: right;
+            width: 300px;
+            background: blue;
+            /* height: 300px; */
+        }
+    </style>
+    <!--浮动布局  -->
+    <section class="layout float">
+        <h1>三栏布局</h1>
+        <article class="left-right-center">
+            <div class="left">left</div>
+            <div class="right">right</div>
+            <div class="center">
+                1.这是三栏布局的浮动解决方案； 2.这是三栏布局的浮动解决方案； 3.这是三栏布局的浮动解决方案； 4.这是三栏布局的浮动解决方案； 5.这是三栏布局的浮动解决方案； 6.这是三栏布局的浮动解决方案；
+            </div>
+        </article>
+    </section>
+</body>
+
+</html>

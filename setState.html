@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let nextState = {};
+        let partialState = { value: 1 };
+        nextState = Object.assign({}, nextState, partialState);
+        console.log(nextState); // {value: 1}
+        nextState = Object.assign({}, nextState, partialState);
+        console.log(nextState); // {value: 1}
+        partialState = { value: 2 };
+        nextState = Object.assign({}, nextState, partialState);
+        console.log(nextState); // {value: 2}
+    </script>
+</body>
+
+</html>

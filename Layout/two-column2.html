@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            width: 80%;
+            margin: 0 auto;
+        }
+    </style>
+    <style>
+        /* 双inlineBlock布局的时候两个内联元素之间会流出空隙，父元素要用font-size清理下空隙. 内联元素需要使用 vertical-align: top;
+        来使他们的顶部与整行的顶部对齐 , 否则基于文字极限对其，会使得文字内容较少的内联模块出现空白。 */
+
+        .css-two-column-layout {
+            font-size: 0px;
+        }
+
+        .css-left-div__inline-block {
+            vertical-align: top;
+            display: inline-block;
+            width: 120px;
+            font-size: 14px;
+        }
+
+        .css-right-div__inline-block {
+            vertical-align: top;
+            display: inline-block;
+            /* 一定要给出自适应的宽度，否则不会并排*/
+            width: calc(100% - 120px);
+            font-size: 14px;
+        }
+    </style>
+    <div class="css-two-column-layout">
+        <div class="css-left-div__inline-block">左边固定宽度，高度不固定</div>
+        <div class="css-right-div__inline-block">
+            这里的内容可能比左侧高，也可能比左侧低。宽度需要自适应。</br>
+            基本的样式是，两个div相距20px, 左侧div宽 120px
+        </div>
+    </div>
+    <!-- 会被前面高度比较高的元素向下挤，造成空白 -->
+    <div>div after layout</div>
+</body>
+
+</html>

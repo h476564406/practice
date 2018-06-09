@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <script>
+        //父类
+        function sup(name) {
+            this.name = name
+        }
+        //定义父类原型上的方法
+        sup.prototype.printName = function () {
+            console.log(this);
+            console.log(this.name)
+        }
+        function sub(name, age) {
+            sup.call(this, name)    //调用call方法,继承sup超类属性
+            this.age = age
+        }
+
+        sub.prototype = new sup   //把子类sub的原型对象指向父类的实例化对象，这样即可以继承父类sup原型对象上的属性和方法
+        sub.prototype.constructor = sub    //这时会有个问题子类的constructor属性会指向sup，手动把constructor属性指向子类sub
+        //这时就可以在父类的基础上添加属性和方法了
+        sub.prototype.printAge = function () {
+            console.log(this.age)
+        }
+        let jack = new sub('jack', 20)
+        jack.printName()    //输出 : jack printName中this指的是子类实例
+        jack.printAge()    //输出 : 20
+    </script> -->
+    <script>
+        class sup {
+            constructor(name) {
+                this.name = name
+                console.log('sup constructor');
+            }
+
+            printName() {
+                console.log(this.name)
+            }
+        }
+
+        class sub extends sup {
+            constructor(name, age) {
+                // es6Extend2.html:51 Uncaught ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor
+                // ES6语法如果有用constructor, 必须调用super。
+                // 如果没有用constructor， 父类中的constructor正常调用。
+                // 根本原因是constructor会覆盖父类的constructor，导致父类构造函数没执行，所以手动执行下。
+                super(name)
+                this.age = age
+            }
+
+            printAge() {
+                console.log(this.age)
+            }
+        }
+
+        let jack = new sub('jack', 20)
+        jack.printName()    //输出 : jack
+        jack.printAge()    //输出 : 20
+    </script>
+</body>
+
+</html>

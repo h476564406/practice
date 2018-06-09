@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .layout.grid .left-center-right {
+            width: 100%;
+            display: grid;
+            grid-template-rows: 150px;
+            grid-template-columns: 300px auto 300px;
+        }
+
+        .span2 {
+            grid-column: auto / span 2;
+        }
+
+        .layout.float .left {
+            background: red;
+        }
+
+        .layout.float .center {
+            background: yellow;
+        }
+
+        .layout.float .right {
+            background: blue;
+        }
+    </style>
+    <section class="layout grid">
+        <h1>三栏布局</h1>
+        <article class="left-center-right">
+            <div class="left"></div>
+            <div class="center">
+                <h2>网格布局解决方案</h2>
+                1.这是三栏布局的浮动解决方案； 2.这是三栏布局的浮动解决方案； 3.这是三栏布局的浮动解决方案； 4.这是三栏布局的浮动解决方案； 5.这是三栏布局的浮动解决方案； 6.这是三栏布局的浮动解决方案；
+            </div>
+            <div class="right"></div>
+            <!-- 前面的三块div已经占满一行，开始新的一行 -->
+            <div class="span2"></div>
+            <div>
+                <h2>网格布局解决方案</h2>
+                1.这是三栏布局的浮动解决方案； 2.这是三栏布局的浮动解决方案； 3.这是三栏布局的浮动解决方案； 4.这是三栏布局的浮动解决方案； 5.这是三栏布局的浮动解决方案； 6.这是三栏布局的浮动解决方案；
+            </div>
+        </article>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        (() => {
+            function myPromise(fn) {
+                let state = 'pending';
+                let value;
+                let deferred = null;
+                fn(resolve, reject);
+
+                this.then = function (onResolved, onRejected) {
+                    // console.log(this); // myPromsie
+                    return new myPromise(function (resolve, reject) {
+                        // 关键是handle是this的handle，作用域链是在创建的时候确定的。静态词法作用域
+                        //  这个handle是this的handle
+                        // resolve, reject是new myPromise的resolve, reject
+                        // console.log(this); // Window
+                        handle({
+                            onResolved,
+                            onRejected,
+                            resolve,
+                            reject,
+                        });
+                    });
+                };
+                function resolve(newValue) {
+                    state = 'resolved';
+                    value = newValue;
+                    if (deferred) {
+                        handle(deferred);
+                    }
+                }
+
+                function reject(reason) {
+                    state = 'rejected';
+                    value = reason;
+                    if (deferred) {
+                        handle(deferred);
+                    }
+                }
+                //  查看状态，决定做什么处理
+                function handle(handler) {
+                    // console.log(this); // Window
+                    // 如果还没有resolve掉，，就把then传入的handler保留在当前promise的deferred
+                    if (state === 'pending') {
+                        deferred = handler;
+                        return;
+                    }
+
+                    let handlerCallback;
+                    if (state === 'resolved') {
+                        handlerCallback = handler.onResolved;
+                    } else {
+                        handlerCallback = handler.onRejected;
+                    }
+                    let ret;
+                    try {
+                        ret = handlerCallback(value);
+                    } catch (e) {
+                        handler.reject(e);
+                        return;
+                    }
+                    // handler.resolve 是then新返回的promise的resolve
+                    // 会让新返回的promise的state变为resolved, 并且调用这个promise的handle
+                    handler.resolve(ret);
+                }
+            }
+            const promise = new myPromise(function (resolve) {
+                setTimeout(function () {
+                    console.log('setTimeout');
+                    resolve(1);
+                }, 3000);
+            });
+            // console.log('promise', promise);
+            const promise1 = promise
+                .then(function (res) {
+                    console.log(res);
+                    return 2;
+                })
+            // console.log('promise1', promise1);
+            const promise2 = promise1.then(function (res) {
+                console.log(res);
+                return 3;
+            });
+            // console.log('promise2', promise2);
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 采用媒体查询使得width的宽度变化比如<576px的时候width: 100%-->
+    <style>
+        .parent {
+            overflow: hidden;
+        }
+
+        .left {
+            float: left;
+            width: 120px;
+        }
+
+        .right {
+            /* margin-left: 140px; */
+            /* width: calc(100% - 160px); */
+            /* width: 70%; */
+            /* margin-left: 140px; */
+        }
+    </style>
+    <div class="parent">
+        <div class="left">左边固定宽度，高度不固定左边固定宽度，高度不固定定宽度，高度不固定</div>
+        <div class="right">左边固定宽度，高度不固定左边固定宽度，高度不固定定宽</div>
+    </div>div>
+</body>
+
+</html>

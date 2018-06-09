@@ -1,0 +1,60 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            width: 80%;
+            margin: 0 auto;
+        }
+    </style>
+    <style>
+        .css-two-column-layout {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+        }
+
+        .css-left-div__absolute {
+            position: absolute;
+            width: 120px;
+        }
+
+        .css-right-div {
+            /* margin-left: 140px; */
+            position: absolute;
+            left: 140px;
+        }
+    </style>
+    <div class="css-two-column-layout">
+        <div class="css-left-div__absolute">
+            左边固定宽度，高度不固定
+            <br> 左边固定宽度，高度不固定
+            <br> 左边固定宽度，高度不固定
+        </div>
+        <div class="css-right-div">
+            这里的内容可能比左侧高，也可能比左侧低。宽度需要自适应。</br>
+            基本的样式是，两个div相距20px, 左侧div宽 120px
+        </div>
+    </div>
+    <div>div after layout</div>
+    <!-- 缺点： 由于脱离了文档流，父元素的高度为0，该布局后面的元素会被absolute的元素遮蔽。
+        要确定父元素的高度，但是在各个屏幕大小下，父元素的高度会因为内容流动随之变化。
+        怎么让后面的元素能跟在这个布局后面？这个场景不好处理。
+        因此它适合元素宽度都是固定像素+给出按高度最高的子元素固定父元素高度的非响应式情况，避免子元素宽度自适应，高度随之变化的场景。
+        或者适合父元素高度固定像素加overflow的情况。
+-->
+</body>
+
+</html>

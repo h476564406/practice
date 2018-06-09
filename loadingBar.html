@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .loading {
+            display: table;
+            /* width: 50px; */
+            width: 50%;
+            height: 100vh;
+        }
+
+        .loading .progress {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            /* 如果设定的高度大于table设定的高度，以单元格高度为准 */
+            /* 如果设定的宽度大于table设定的宽度，没有效果，仍以table设定的宽度为准 */
+            /* width: 100px; */
+            /* height: 200px; */
+        }
+        /* 
+        .loading .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid blueviolet;
+        }
+
+        .loading .progress:before {
+            display: inline-block;
+            height: 100%;
+            content: '.';
+            vertical-align: middle;
+        }
+
+        .percentIndicator {
+            display: inline-block;
+            vertical-align: middle;
+        } */
+    </style>
+    <div id="js-loading" class="loading">
+        <div id="js-progress" class="progress">
+            <span class="percentIndicator">
+                0%
+            </span>
+        </div>
+    </div>
+    <script>
+        const $loading = document.getElementById('js-loading');
+        const $progress = document.getElementById('js-progress');
+        let prg = 0;
+        let timer = 0;
+
+        progress([80, 90], [1, 3], 100);
+
+        function progress(threshold, speed, delay, callback) {
+            let _threshold = random(threshold);
+            let _speed = random(speed);
+            let _delay = random(delay);
+            window.clearTimeout(timer);
+            timer = window.setTimeout(() => {
+                // 需要让loading在window loaded的时候才到达终点，在这之前，loading可以保持一个等待的状态，
+                // 比如在80%的时候，先停一停，然后在loaded的时候快速将进度推至100%。
+                if (prg + _speed >= _threshold) {
+                    prg = _threshold;
+                    callback && callback()
+                } else {
+                    prg += _speed;
+                    progress(_threshold, speed, delay, callback);
+                }
+                console.log(prg);
+                // 留意，由于已经不是自增1，所以这里要取整
+                $progress.innerHTML = `${parseInt(prg, 10)}%`;
+            }, _delay);
+        }
+        window.onload = () => {
+            progress(100, [1, 5], 10, () => {
+                window.setTimeout(() => {
+                    // 延迟了一秒再隐藏loading
+                    // $loading.style.display = 'none';
+                }, 1000)
+            })
+        }
+        function random(n) {
+            if (typeof n === 'object') {
+                const distance = n[1] - n[0];
+                const offset = n[0];
+                return Math.random() * distance + offset
+            } else {
+                return n;
+            }
+        }
+    </script>
+</body>
+
+</html>
