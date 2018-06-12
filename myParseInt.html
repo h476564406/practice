@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function myParseInt(str, radix) {
+            let res = 0;
+
+            const strType = typeof str;
+            if (strType !== 'string' && strType !== 'number') {
+                return NaN;
+            }
+
+            str = str.trim().split('.')[0];
+            const length = str.length;
+            if (!length) {
+                return str;
+            }
+            if (!radix) {
+                radix = 10;
+            }
+            if (typeof radix !== 'number') {
+                return NaN
+            }
+
+            let arr = [];
+            for (let i = 0; i < length; i++) {
+                let value = str[i];
+                if (/[0-9]/.test(value)) {
+                    arr.push(value);
+                } else {
+                    break;
+                }
+            }
+            if (arr.length === 0) {
+                return NaN;
+            } else {
+                arr = arr.reverse();
+                for (let j = 0; j < arr.length; j++) {
+                    res += arr[j] * Math.pow(radix, j);
+                }
+
+            }
+
+            return res;
+        }
+        console.log(myParseInt('9a'));
+        console.log(myParseInt('a9'));
+    </script>
+</body>
+
+</html>
