@@ -19,8 +19,8 @@
             }
 
             str = str.trim().split('.')[0];
-            const length = str.length;
-            if (!length) {
+            const strLength = str.length;
+            if (!strLength) {
                 return str;
             }
             if (!radix) {
@@ -31,7 +31,7 @@
             }
 
             let arr = [];
-            for (let i = 0; i < length; i++) {
+            for (let i = 0; i < strLength; i++) {
                 let value = str[i];
                 if (/[0-9]/.test(value)) {
                     arr.push(value);
@@ -42,8 +42,8 @@
             if (arr.length === 0) {
                 return NaN;
             } else {
-                arr = arr.reverse();
-                for (let j = 0; j < arr.length; j++) {
+                const arrLength = arr.reverse().length;
+                for (let j = 0; j < arrLength; j++) {
                     res += arr[j] * Math.pow(radix, j);
                 }
 
@@ -51,8 +51,8 @@
 
             return res;
         }
-        console.log(myParseInt('9a'));
-        console.log(myParseInt('a9'));
+        console.log(myParseInt('9.1a'));
+        console.log(myParseInt('a9.1'));
     </script>
 </body>
 
