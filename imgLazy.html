@@ -16,12 +16,12 @@
         }
     </style>
     <!-- dataset根据屏幕密度现实对应尺寸图片 -->
-    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152446389278394_blob" sizes="600px" alt="">
-    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152413028667474_blob" alt="">
-    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152412772793072_blob" alt="">
-    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152359062473518_blob" alt="">
-    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152342881641931_blob" alt="">
-    <img class="lazy" data-src="http://test.rentalist.co.uk/storage/properties/152341638634638_blob" alt="">
+    <img class="lazy" src="http://test.rentalist.co.uk/storage/properties/152446389278394_blob" alt="">
+    <img class="lazy" src="http://test.rentalist.co.uk/storage/properties/152413028667474_blob" alt="">
+    <img class="lazy" src="http://test.rentalist.co.uk/storage/properties/152412772793072_blob" alt="">
+    <img class="lazy" src="http://test.rentalist.co.uk/storage/properties/152359062473518_blob" alt="">
+    <img class="lazy" src="http://test.rentalist.co.uk/storage/properties/152342881641931_blob" alt="">
+    <img class="lazy" src="http://test.rentalist.co.uk/storage/properties/152341638634638_blob" alt="">
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             let lazyImages = [].slice.call(document.querySelectorAll('img.lazy'));
@@ -32,7 +32,7 @@
                     entries.forEach(function (entry, index) {
                         if (entry.isIntersecting) {
                             let lazyImage = entry.target;
-                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImage.src = lazyImage.src;
                             lazyImage.classList.remove('lazy');
                             lazyImageObserver.unobserve(lazyImage);
                         }
